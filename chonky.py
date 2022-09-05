@@ -1,7 +1,6 @@
 import os
 import discord
 from dotenv import load_dotenv
-import cowsay
 
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
