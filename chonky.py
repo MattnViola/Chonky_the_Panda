@@ -2,7 +2,6 @@ import os
 import discord
 from dotenv import load_dotenv
 from random import randint
-import json
 import requests
 
 load_dotenv()
@@ -30,20 +29,22 @@ def main():
             await message.channel.send(bot_pandumplin_gif())
         elif message.content.startswith('!'):
             await message.channel.send(bot_text_reply(message.content))
-        else:
-            msg_reaction()
+        elif msg_reaction(message.content):
+            await message.add_reaction(msg_reaction(message.content))
 
 
     client.run(TOKEN)
 
 # Returns a silly reply based on a specific command in the channel
 def bot_text_reply(msg):
-    if 'hi' in msg:
-        return 'Howdy, Dumplin!'
-    elif 'carrot' in msg:
-        return 'NOM NOM NOM NOM'
-    elif 'hullo' in msg:
-        return 'hullo, earth!'
+    response = {
+        "hi": "Howdy, Dumplin!", "carrot": "NOM NOM NOM NOM", "hullo": "hullo, earth!",
+        "muah": "MUAH MUAH MUAH MUAH!", "failed": "looks like it work to me!", "pull": "*FEIGNS DEATH*",
+        "aggro": "TUNT! ***ROARS***"
+    }
+    msg = msg.lstrip('!').lower()
+    if msg in response:
+        return response[msg]
 
 # Returns random panda or dumpling, or watermelon gif link
 def bot_pandumplin_gif():
@@ -57,14 +58,21 @@ def bot_pandumplin_gif():
         response = requests.get(f"https://api.giphy.com/v1/gifs/random?api_key={GIPHYKEY}&tag=dumpling&rating=r")
         o = response.json()
         return o["data"]["images"]["original_mp4"]["mp4"]
-        
+
     elif n == 2:
         response = requests.get(f"https://api.giphy.com/v1/gifs/random?api_key={GIPHYKEY}&tag=watermelon&rating=r")
         o = response.json()
         return o["data"]["images"]["original_mp4"]["mp4"]
 
+# Adds a reaction to a message event, based on message content
 def msg_reaction(msg):
-    return
+    emoji_response = {
+        "dumpling": "🐢", "honey": "😍", "hog": "🐽", "melon": "🍉",
+        "chonky": "🐼"
+    }
+    if msg.lower() in emoji_response:
+        return emoji_response[msg.lower()]
+    
 
 if __name__ == "__main__":
     main()
