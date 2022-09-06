@@ -1,0 +1,14 @@
+Required Libraries- 
+
+"Not sure exactly which ones come with python initially, if not,
+the commands for all are pip install <library name>"
+
+os, discord, dotenv, random, requests
+
+Other requirements-
+
+"You must also have a separate .env file containing your discord bot's token,
+as well as another key to access GIPHY's API. The .env file should be like this-"
+
+TOKEN="<yourdiscordtokenhere>"
+GIPHY_KEY="<yourGIPHYKEYhere>"

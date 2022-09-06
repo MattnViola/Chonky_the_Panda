@@ -26,7 +26,7 @@ def main():
             return
 
         if message.content.startswith('!gif'):
-            await message.channel.send(bot_pandumplin_gif())
+            await message.channel.send(bot_gif())
         elif message.content.startswith('!'):
             await message.channel.send(bot_text_reply(message.content))
         elif msg_reaction(message.content):
@@ -46,8 +46,11 @@ def bot_text_reply(msg):
     if msg in response:
         return response[msg]
 
+    else:
+        return "Idk what's goin on..."
+
 # Returns random panda or dumpling, or watermelon gif link
-def bot_pandumplin_gif():
+def bot_gif():
     n = randint(0,2)
     if n == 0:
         response = requests.get(f"https://api.giphy.com/v1/gifs/random?api_key={GIPHYKEY}&tag=panda&rating=r")
@@ -72,7 +75,7 @@ def msg_reaction(msg):
     }
     if msg.lower() in emoji_response:
         return emoji_response[msg.lower()]
-    
+        
 
 if __name__ == "__main__":
     main()
